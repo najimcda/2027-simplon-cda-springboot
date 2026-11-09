@@ -1,5 +1,8 @@
 package fr.simplon.domedespuys.controllers;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import fr.simplon.domedespuys.Views.PurchaseView;
+import fr.simplon.domedespuys.Views.UserView;
 import fr.simplon.domedespuys.entities.User;
 import fr.simplon.domedespuys.repositories.UserRepository;
 import lombok.AllArgsConstructor;
@@ -19,11 +22,13 @@ public class UserController {
     private final UserRepository userRepository;
 
     @GetMapping
+    @JsonView(UserView.UserListView.class)
     public List<User> getUsers() {
         return userRepository.findAll();
     }
 
     @GetMapping("/{id}")
+    @JsonView(UserView.UserDetailView.class)
     public Optional<User> getUserById(@PathVariable String id) {
         return userRepository.findById(Long.valueOf(id));
     }

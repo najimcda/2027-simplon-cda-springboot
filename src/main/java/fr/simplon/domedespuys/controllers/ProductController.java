@@ -1,5 +1,7 @@
 package fr.simplon.domedespuys.controllers;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import fr.simplon.domedespuys.Views.ProductView;
 import fr.simplon.domedespuys.entities.Product;
 import fr.simplon.domedespuys.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
@@ -19,16 +21,19 @@ public class ProductController {
     private final ProductRepository productRepository;
 
     @GetMapping
+    @JsonView(ProductView.ProductListView.class)
     public List<Product> getBrands() {
         return productRepository.findAll();
     }
 
     @GetMapping("/slug/{slug}")
+    @JsonView(ProductView.ProductDetailView.class)
     public Optional<Product> getProductBySlug(@PathVariable String slug) {
         return productRepository.findBySlug(slug);
     }
 
     @GetMapping("/{id}")
+    @JsonView(ProductView.ProductDetailView.class)
     public Optional<Product> getProductById(@PathVariable String id) {
         return productRepository.findById(Long.valueOf(id));
     }

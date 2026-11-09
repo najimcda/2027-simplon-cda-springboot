@@ -1,5 +1,7 @@
 package fr.simplon.domedespuys.entities;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import fr.simplon.domedespuys.Views.PurchaseView;
 import fr.simplon.domedespuys.enums.EnumPurchaseStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -18,23 +20,31 @@ public class Purchase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(PurchaseView.Id.class)
     private Long id;
 
     @Column(unique = true, nullable = false)
+    @JsonView(PurchaseView.Number.class)
     private String number;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = true)
-    private EnumPurchaseStatus status = EnumPurchaseStatus.PENDING;
+    @Column(nullable = false)
+    @JsonView(PurchaseView.Status.class)
+    private String status = EnumPurchaseStatus.PENDING.getValue();
 
     @Column(nullable = false)
+    @JsonView(PurchaseView.CreatedAt.class)
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "purchase")
+    @JsonView(PurchaseView.PurchaseProduct.class)
     private List<PurchaseProduct> purchaseProducts;
 
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false)
+    @JsonView(PurchaseView.User.class)
     private User user;
 
+    public void setAdress(Adress first) {
+        
+    }
 }

@@ -1,5 +1,8 @@
 package fr.simplon.domedespuys.entities;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import fr.simplon.domedespuys.Views.PurchaseView;
+import fr.simplon.domedespuys.Views.UserView;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,9 +19,12 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(UserView.Id.class)
     private Long id;
 
     @Column(nullable = false)
+    @JsonView(UserView.Email.class)
+
     private String email;
 
 
@@ -27,10 +33,12 @@ private String password;
 
 
 @Column(nullable = false)
+@JsonView(UserView.Firstname.class)
 private String firstname;
 
 
 @Column(nullable = false)
+@JsonView(UserView.Lastname.class)
 private String lastname;
 
 
@@ -39,6 +47,7 @@ private String phone;
 
 
 @Column(nullable = false)
+@JsonView(UserView.CreatedAt.class)
 private LocalDateTime createdAt;
 
 
