@@ -1,7 +1,15 @@
 package fr.simplon.domedespuys.dto;
 
-public class ImageDTO {
-    public String path;
-    public Boolean isDefault;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ImageDTO {
+
+    private String path;
+    private String extension;
+    private Long idProduct;
 }
