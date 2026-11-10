@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserPostDTO {
 
-    private String email;
-    private String password;
-    private String firstName;
-    private String lastName;
+    public String email;
+    public String password;
+    public String firstName;
+    public String lastName;
 }

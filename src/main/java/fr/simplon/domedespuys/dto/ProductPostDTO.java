@@ -11,9 +11,9 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductPostDTO {
 
-    private String label;
-    private String description;
-    private int price;
-    private Long idBrand;
-    private List<String> images;
+    public String label;
+    public String description;
+    public int price;
+    public Long idBrand;
+    public List<String> images;
 }

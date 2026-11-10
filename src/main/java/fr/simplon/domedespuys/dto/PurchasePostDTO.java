@@ -11,6 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 public class PurchasePostDTO {
 
-    private AdressDTO address;
-    private List<PurchaseProductDTO> purchaseProducts;
+    public AdressDTO address;
+    public List<PurchaseProductDTO> purchaseProducts;
 }
