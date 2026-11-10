@@ -1,6 +1,7 @@
 package fr.simplon.domedespuys.services;
 
 import fr.simplon.domedespuys.dto.UserDTO;
+import fr.simplon.domedespuys.dto.UserPostDTO;
 import fr.simplon.domedespuys.entities.User;
 import fr.simplon.domedespuys.repositories.UserRepository;
 import fr.simplon.domedespuys.services.interfaces.IUserService;
@@ -31,7 +32,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User update(String id, UserDTO dto) {
+    public User update(String id, UserPostDTO dto) {
         User user = getById(id);
         if (user != null) {
             dtoToObject(dto, user);
@@ -52,7 +53,7 @@ public class UserServiceImpl implements IUserService {
 
 
 
-    private void dtoToObject(UserDTO dto, User user) {
+    private void dtoToObject(UserPostDTO dto, User user) {
         user.setEmail(dto.email);
         user.setPassword(dto.password);
         user.setFirstname(dto.firstName);
