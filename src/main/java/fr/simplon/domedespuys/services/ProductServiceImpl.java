@@ -52,9 +52,6 @@ public class ProductServiceImpl implements IProductService {
         product.setDescription(dto.description);
         product.setSlug(slugger.slugify(dto.label));
         product.setPrice(dto.price);
-        product.setImages(dto.image);
-        product.setBrand(dto.brand);
-
         productRepository.saveAndFlush(product);
     }
 

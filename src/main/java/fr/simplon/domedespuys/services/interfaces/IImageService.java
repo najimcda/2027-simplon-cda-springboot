@@ -6,6 +6,6 @@ import fr.simplon.domedespuys.services.interfaces.ICreate;
 import fr.simplon.domedespuys.services.interfaces.IDelete;
 
 public interface IImageService extends
-        ICreate<ImageDTO, Image>,
+        ICreate<Image, ImageDTO>,
         IDelete {
 }

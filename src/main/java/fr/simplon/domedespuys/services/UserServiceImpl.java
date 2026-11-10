@@ -1,6 +1,5 @@
 package fr.simplon.domedespuys.services;
 
-import fr.simplon.domedespuys.dto.UserDTO;
 import fr.simplon.domedespuys.dto.UserPostDTO;
 import fr.simplon.domedespuys.entities.User;
 import fr.simplon.domedespuys.repositories.UserRepository;
