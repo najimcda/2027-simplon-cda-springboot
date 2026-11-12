@@ -6,27 +6,30 @@ public class UserView {
 
     }
 
-    public interface Email{
+    public interface Email {
 
     }
 
-    public interface Firstname{
+    public interface Firstname {
 
     }
 
-    public interface Lastname{
+    public interface Lastname {
 
     }
 
-
-
-    public interface CreatedAt{
+    public interface CreatedAt {
 
     }
+
+    public interface Adresses {
+
+    }
+
     public interface UserListView extends Email, Firstname, Lastname, CreatedAt {
     }
 
-    public interface UserDetailView extends UserListView, ProductView.ProductListView {
+    public interface UserDetailView extends UserListView, Adresses, AdressView.AdressDetailView {
     }
 
 }

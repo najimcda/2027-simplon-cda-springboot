@@ -1,7 +1,6 @@
 package fr.simplon.domedespuys.controllers;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import fr.simplon.domedespuys.Views.PurchaseView;
 import fr.simplon.domedespuys.Views.UserView;
 import fr.simplon.domedespuys.entities.User;
 import fr.simplon.domedespuys.repositories.UserRepository;
@@ -17,7 +16,7 @@ import java.util.Optional;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/user")
-public class UserController {
+public class UserRestController {
 
     private final UserRepository userRepository;
 

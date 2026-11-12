@@ -1,12 +1,14 @@
 package fr.simplon.domedespuys.services;
 
 import fr.simplon.domedespuys.dto.UserPostDTO;
+import fr.simplon.domedespuys.dto.UserPutDTO;
 import fr.simplon.domedespuys.entities.User;
 import fr.simplon.domedespuys.repositories.UserRepository;
 import fr.simplon.domedespuys.services.interfaces.IUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 
 
 @Service
@@ -16,12 +18,7 @@ public class UserServiceImpl implements IUserService {
     private UserRepository userRepository;
 
 
-    @Override
-    public User create(UserDTO dto) {
-        User user = new User();
-        dtoToObject(dto, user);
-        return user;
-    }
+
 
     @Override
     public User getById(String id) {
@@ -31,13 +28,29 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User update(String id, UserPostDTO dto) {
+    public User create(UserPostDTO dto) {
+        User user = new User();
+        user.setEmail(dto.email);
+        user.setPassword(dto.password);
+        user.setFirstname(dto.firstName);
+        user.setLastname(dto.lastName);
+        user.setCreatedAt(LocalDateTime.now());
+        return userRepository.saveAndFlush(user);
+    }
+
+    @Override
+    public User update(String id, UserPutDTO dto) {
         User user = getById(id);
         if (user != null) {
-            dtoToObject(dto, user);
+            user.setFirstname(dto.firstName);
+            user.setLastname(dto.lastName);
+            user.setPhone(dto.phone);
+            userRepository.saveAndFlush(user);
         }
         return user;
     }
+
+
 
     @Override
     public boolean delete(String id) {
@@ -48,18 +61,6 @@ public class UserServiceImpl implements IUserService {
             System.out.println(e.getMessage());
             return false;
         }
-    }
-
-
-
-    private void dtoToObject(UserPostDTO dto, User user) {
-        user.setEmail(dto.email);
-        user.setPassword(dto.password);
-        user.setFirstname(dto.firstName);
-        user.setLastname(dto.lastName);
-        user.setCreatedAt(dto.createdAt);
-
-        userRepository.saveAndFlush(user);
     }
 
 }

@@ -9,13 +9,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "purchase")
 public class Purchase {
 
     @Id
@@ -23,28 +23,29 @@ public class Purchase {
     @JsonView(PurchaseView.Id.class)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(length = 20, unique = true, nullable = false)
     @JsonView(PurchaseView.Number.class)
     private String number;
-
-    @Column(nullable = false)
-    @JsonView(PurchaseView.Status.class)
-    private String status = EnumPurchaseStatus.PENDING.getValue();
 
     @Column(nullable = false)
     @JsonView(PurchaseView.CreatedAt.class)
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "purchase")
-    @JsonView(PurchaseView.PurchaseProduct.class)
-    private List<PurchaseProduct> purchaseProducts;
+    @Column(nullable = false, length = 10)
+    @JsonView(PurchaseView.Status.class)
+    private String status = EnumPurchaseStatus.PENDING.getValue();
 
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false)
     @JsonView(PurchaseView.User.class)
     private User user;
 
-    public void setAdress(Adress first) {
-        
-    }
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false)
+    private Adress adress;
+
+    @OneToMany(mappedBy = "purchase")
+    @JsonView(PurchaseView.PurchaseProduct.class)
+    private List<PurchaseProduct> purchaseProducts = new ArrayList<>();
+
 }

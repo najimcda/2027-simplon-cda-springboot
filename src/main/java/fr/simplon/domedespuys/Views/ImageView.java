@@ -5,4 +5,6 @@ public class ImageView {
     public interface Path {}
     public interface Extension {}
     public interface IsDefault {}
+
+    public interface ImageDetailView extends Id, Path, Extension, IsDefault {}
 }

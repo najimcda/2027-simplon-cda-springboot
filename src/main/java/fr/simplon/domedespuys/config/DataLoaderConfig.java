@@ -43,16 +43,34 @@ public class DataLoaderConfig implements CommandLineRunner {
     private void createPurchaseProduct() {
         if (0 == purchaseProductRepository.count()) {
             List<Purchase> purchases = purchaseRepository.findAll();
-            for (Purchase purchase : purchases) {
-                createPurchaseProductByPurchase(purchase);
+            List<Product> products = productRepository.findAll();
+            Random random = new Random();
 
+            for (Purchase purchase : purchases) {
                 do {
-                    createPurchaseProductByPurchase(purchase);
-                } while(hasProbability(1, 3));
+                    Product product = products.get(random.nextInt(products.size()));
+                    createPurchaseProductByPurchase(purchase, product);
+                } while (hasProbability(1, 3));
             }
 
             purchaseProductRepository.flush();
         }
+    }
+
+    private void createPurchaseProductByPurchase(Purchase purchase, Product product) {
+        Faker faker = new Faker(Locale.of("fr"));
+        PurchaseProduct purchaseProduct = new PurchaseProduct();
+        purchaseProduct.setPurchase(purchase);
+        purchaseProduct.setProduct(product);
+        purchaseProduct.setQuantity(faker.number().numberBetween(1, 6));
+
+        int priceProduct = product.getPrice();
+        purchaseProduct.setPrice(priceProduct);
+        if (hasProbability(1, 6)) {
+            purchaseProduct.setPrice((int) (priceProduct * 1.2));
+        }
+
+        purchaseProductRepository.save(purchaseProduct);
     }
 
     private void createBrand() {
@@ -87,7 +105,7 @@ public class DataLoaderConfig implements CommandLineRunner {
                 }
 
                 Random random = new Random();
-                Long userId = random.nextLong(1, 100);
+                Long userId = random.nextLong(1, NB_USERS + 1);
                 Optional<User> optionalUser = userRepository.findById(userId);
                 // Si l'objet attendu via notre "Optional" est présent (ifPresent),
                 // alors on appelle la fonction "setUser" depuis l'objet "address" avec l'objet présent dans l'optional
@@ -202,7 +220,7 @@ public class DataLoaderConfig implements CommandLineRunner {
                 Random random = new Random();
 
                 do {
-                    Long idUser = random.nextLong(1,100);
+                    Long idUser = random.nextLong(1, NB_USERS + 1);
                     Optional<User> optionalUser = userRepository.findById(idUser);
                     user = optionalUser.orElseThrow();
                     adresses = adressRepository.findAllByUser(user);

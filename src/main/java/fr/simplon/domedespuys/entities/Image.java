@@ -1,5 +1,8 @@
 package fr.simplon.domedespuys.entities;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import fr.simplon.domedespuys.Views.BrandView;
+import fr.simplon.domedespuys.Views.ImageView;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,23 +10,29 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 @Data
+@Entity
 public class Image {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(ImageView.Id.class)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "TEXT")
+    @JsonView(ImageView.Path.class)
     private String path;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 180)
+    @JsonView(ImageView.Extension.class)
     private String extension;
 
     @Column(nullable = false)
-    private Boolean isDefault;
+    @JsonView(ImageView.IsDefault.class)
+    private Boolean isDefault = false;
 
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false)
     private Product product;
+
 }

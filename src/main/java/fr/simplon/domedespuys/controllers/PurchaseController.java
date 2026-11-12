@@ -28,8 +28,8 @@ public class PurchaseController {
 
     @GetMapping("/{id}")
     @JsonView(PurchaseView.PurchaseDetailView.class)
-    public Optional<Purchase> getPurchaseById(@PathVariable String id) {
-        return purchaseRepository.findById(Math.toIntExact(Long.parseLong(id)));
+    public Purchase getPurchaseById(@PathVariable Long id) {
+        return purchaseRepository.findById(id).orElseThrow();
     }
 
 
